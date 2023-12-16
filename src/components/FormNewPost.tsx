@@ -1,6 +1,7 @@
 'use client'
 
 import { FormData } from "@/type";
+import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 import ReactTextareaAutosize from "react-textarea-autosize"
 
@@ -20,9 +21,16 @@ const FormNewPost = () => {
 		setFromData((prev) => ({ ...prev, [name]: value }))
 	}
 
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		console.log(fromData)
+		try {
+			console.log("submitted")
+			const response = await axios.post("api/posts", fromData)
+			console.log(response)
+		}
+		catch (error) {
+			console.error(error)
+		}
 	}
 
 	return (
